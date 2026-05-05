@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(uuid())
+  name         String
+  email        String        @unique
+  passwordHash String
+  createdAt    DateTime      @default(now())
+  wallets      Wallet[]
+  transactions Transaction[]
+}
+
+model Wallet {
+  id             String         @id @default(uuid())
+  userId         String
+  name           String         // "Dompet Tunai", "BCA", "Gaji", "Makanan"
+  category       String         // "asset", "liability", "income", "expense"
+  balance        Decimal        @default(0) @db.Decimal(15, 2)
+  createdAt      DateTime       @default(now())
+  user           User           @relation(fields: [userId], references: [id])
+  journalEntries JournalEntry[]
+}
+
+model Transaction {
+  id              String         @id @default(uuid())
+  userId          String
+  description     String
+  transactionDate DateTime       @default(now())
+  createdAt       DateTime       @default(now())
+  user            User           @relation(fields: [userId], references: [id])
+  journalEntries  JournalEntry[]
+}
+
+model JournalEntry {
+  id            String      @id @default(uuid())
+  transactionId String
+  walletId      String
+  entryType     String      // "debit" atau "credit"
+  amount        Decimal     @db.Decimal(15, 2)
+  transaction   Transaction @relation(fields: [transactionId], references: [id])
+  wallet        Wallet      @relation(fields: [walletId], references: [id])
+}
