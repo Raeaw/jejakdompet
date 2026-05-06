@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 3000;
 
 // Import Routes
 const authRoutes = require("./routes/authRoutes");
+const walletRoutes = require("./routes/walletRoutes");
 
 // Middleware
 app.use(cors());
@@ -16,6 +17,7 @@ app.use(morgan("dev"));
 
 // === DAFTARKAN RUTE DI SINI ===
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/wallets", walletRoutes);
 
 // Route Dasar (Health Check)
 app.get("/", (req, res) => {
