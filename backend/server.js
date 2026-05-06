@@ -6,10 +6,16 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Import Routes
+const authRoutes = require("./routes/authRoutes");
+
 // Middleware
-app.use(cors()); // Buka jalur komunikasi lintas port (Frontend <-> Backend)
-app.use(express.json()); // Agar bisa membaca body request format JSON
-app.use(morgan("dev")); // Logger
+app.use(cors());
+app.use(express.json());
+app.use(morgan("dev"));
+
+// === DAFTARKAN RUTE DI SINI ===
+app.use("/api/v1/auth", authRoutes);
 
 // Route Dasar (Health Check)
 app.get("/", (req, res) => {
@@ -19,7 +25,6 @@ app.get("/", (req, res) => {
 	});
 });
 
-// Jalankan Server
 app.listen(PORT, () => {
 	console.log(`Gateway Server berjalan di http://localhost:${PORT}`);
 });
