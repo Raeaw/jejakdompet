@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3000;
 const authRoutes = require("./routes/authRoutes");
 const walletRoutes = require("./routes/walletRoutes");
 const transactionRoutes = require('./routes/transactionRoutes');
+const reportRoutes = require('./routes/reportRoutes');
 
 // Middleware
 app.use(cors());
@@ -20,6 +21,7 @@ app.use(morgan("dev"));
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/wallets", walletRoutes);
 app.use("/api/v1/transactions", transactionRoutes);
+app.use("/api/v1/reports", reportRoutes);
 
 // Route Dasar (Health Check)
 app.get("/", (req, res) => {
