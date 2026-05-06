@@ -13,3 +13,19 @@ body {
   /* Sekarang @apply bisa langsung membaca warna dari @theme di atas */
   @apply bg-brand-dark text-white antialiased;
 }
+
+/* Custom Scrollbar untuk Webkit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+::-webkit-scrollbar-thumb {
+  background: #334155; 
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569; 
+}
